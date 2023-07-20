@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CenterSupplySupplierMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.CenterSupplySupplier">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="main_body_type" jdbcType="INTEGER" property="mainBodyType" />
+    <result column="supplier_type" jdbcType="INTEGER" property="supplierType" />
+    <result column="country_id" jdbcType="INTEGER" property="countryId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="postal_code" jdbcType="VARCHAR" property="postalCode" />
+    <result column="brief_introduction" jdbcType="VARCHAR" property="briefIntroduction" />
+    <result column="submit_by" jdbcType="VARCHAR" property="submitBy" />
+    <result column="submit_time" jdbcType="TIMESTAMP" property="submitTime" />
+    <result column="first_check_status" jdbcType="INTEGER" property="firstCheckStatus" />
+    <result column="final_check_status" jdbcType="INTEGER" property="finalCheckStatus" />
+    <result column="first_check_time" jdbcType="TIMESTAMP" property="firstCheckTime" />
+    <result column="final_check_time" jdbcType="TIMESTAMP" property="finalCheckTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, main_body_type, supplier_type, country_id, address, telephone, fax, website, 
+    postal_code, brief_introduction, submit_by, submit_time, first_check_status, final_check_status, 
+    first_check_time, final_check_time, status, create_time, update_time, create_by, 
+    update_by
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.model.CenterSupplySupplierExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from center_supply_supplier
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from center_supply_supplier
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from center_supply_supplier
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.model.CenterSupplySupplierExample">
+    delete from center_supply_supplier
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.CenterSupplySupplier">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into center_supply_supplier (name, main_body_type, supplier_type, 
+      country_id, address, telephone, 
+      fax, website, postal_code, 
+      brief_introduction, submit_by, submit_time, 
+      first_check_status, final_check_status, first_check_time, 
+      final_check_time, status, create_time, 
+      update_time, create_by, update_by
+      )
+    values (#{name,jdbcType=VARCHAR}, #{mainBodyType,jdbcType=INTEGER}, #{supplierType,jdbcType=INTEGER}, 
+      #{countryId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, #{postalCode,jdbcType=VARCHAR}, 
+      #{briefIntroduction,jdbcType=VARCHAR}, #{submitBy,jdbcType=VARCHAR}, #{submitTime,jdbcType=TIMESTAMP}, 
+      #{firstCheckStatus,jdbcType=INTEGER}, #{finalCheckStatus,jdbcType=INTEGER}, #{firstCheckTime,jdbcType=TIMESTAMP}, 
+      #{finalCheckTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.CenterSupplySupplier">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into center_supply_supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="mainBodyType != null">
+        main_body_type,
+      </if>
+      <if test="supplierType != null">
+        supplier_type,
+      </if>
+      <if test="countryId != null">
+        country_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="website != null">
+        website,
+      </if>
+      <if test="postalCode != null">
+        postal_code,
+      </if>
+      <if test="briefIntroduction != null">
+        brief_introduction,
+      </if>
+      <if test="submitBy != null">
+        submit_by,
+      </if>
+      <if test="submitTime != null">
+        submit_time,
+      </if>
+      <if test="firstCheckStatus != null">
+        first_check_status,
+      </if>
+      <if test="finalCheckStatus != null">
+        final_check_status,
+      </if>
+      <if test="firstCheckTime != null">
+        first_check_time,
+      </if>
+      <if test="finalCheckTime != null">
+        final_check_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBodyType != null">
+        #{mainBodyType,jdbcType=INTEGER},
+      </if>
+      <if test="supplierType != null">
+        #{supplierType,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null">
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null">
+        #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null">
+        #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="submitBy != null">
+        #{submitBy,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstCheckStatus != null">
+        #{firstCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="finalCheckStatus != null">
+        #{finalCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="firstCheckTime != null">
+        #{firstCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finalCheckTime != null">
+        #{finalCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.model.CenterSupplySupplierExample" resultType="java.lang.Long">
+    select count(*) from center_supply_supplier
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update center_supply_supplier
+    <set>
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=INTEGER},
+      </if>
+      <if test="row.name != null">
+        name = #{row.name,jdbcType=VARCHAR},
+      </if>
+      <if test="row.mainBodyType != null">
+        main_body_type = #{row.mainBodyType,jdbcType=INTEGER},
+      </if>
+      <if test="row.supplierType != null">
+        supplier_type = #{row.supplierType,jdbcType=INTEGER},
+      </if>
+      <if test="row.countryId != null">
+        country_id = #{row.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="row.address != null">
+        address = #{row.address,jdbcType=VARCHAR},
+      </if>
+      <if test="row.telephone != null">
+        telephone = #{row.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="row.fax != null">
+        fax = #{row.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="row.website != null">
+        website = #{row.website,jdbcType=VARCHAR},
+      </if>
+      <if test="row.postalCode != null">
+        postal_code = #{row.postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="row.briefIntroduction != null">
+        brief_introduction = #{row.briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="row.submitBy != null">
+        submit_by = #{row.submitBy,jdbcType=VARCHAR},
+      </if>
+      <if test="row.submitTime != null">
+        submit_time = #{row.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.firstCheckStatus != null">
+        first_check_status = #{row.firstCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="row.finalCheckStatus != null">
+        final_check_status = #{row.finalCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="row.firstCheckTime != null">
+        first_check_time = #{row.firstCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.finalCheckTime != null">
+        final_check_time = #{row.finalCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.status != null">
+        status = #{row.status,jdbcType=INTEGER},
+      </if>
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.updateTime != null">
+        update_time = #{row.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.createBy != null">
+        create_by = #{row.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="row.updateBy != null">
+        update_by = #{row.updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update center_supply_supplier
+    set id = #{row.id,jdbcType=INTEGER},
+      name = #{row.name,jdbcType=VARCHAR},
+      main_body_type = #{row.mainBodyType,jdbcType=INTEGER},
+      supplier_type = #{row.supplierType,jdbcType=INTEGER},
+      country_id = #{row.countryId,jdbcType=INTEGER},
+      address = #{row.address,jdbcType=VARCHAR},
+      telephone = #{row.telephone,jdbcType=VARCHAR},
+      fax = #{row.fax,jdbcType=VARCHAR},
+      website = #{row.website,jdbcType=VARCHAR},
+      postal_code = #{row.postalCode,jdbcType=VARCHAR},
+      brief_introduction = #{row.briefIntroduction,jdbcType=VARCHAR},
+      submit_by = #{row.submitBy,jdbcType=VARCHAR},
+      submit_time = #{row.submitTime,jdbcType=TIMESTAMP},
+      first_check_status = #{row.firstCheckStatus,jdbcType=INTEGER},
+      final_check_status = #{row.finalCheckStatus,jdbcType=INTEGER},
+      first_check_time = #{row.firstCheckTime,jdbcType=TIMESTAMP},
+      final_check_time = #{row.finalCheckTime,jdbcType=TIMESTAMP},
+      status = #{row.status,jdbcType=INTEGER},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      update_time = #{row.updateTime,jdbcType=TIMESTAMP},
+      create_by = #{row.createBy,jdbcType=VARCHAR},
+      update_by = #{row.updateBy,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.CenterSupplySupplier">
+    update center_supply_supplier
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBodyType != null">
+        main_body_type = #{mainBodyType,jdbcType=INTEGER},
+      </if>
+      <if test="supplierType != null">
+        supplier_type = #{supplierType,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null">
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="postalCode != null">
+        postal_code = #{postalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduction != null">
+        brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="submitBy != null">
+        submit_by = #{submitBy,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstCheckStatus != null">
+        first_check_status = #{firstCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="finalCheckStatus != null">
+        final_check_status = #{finalCheckStatus,jdbcType=INTEGER},
+      </if>
+      <if test="firstCheckTime != null">
+        first_check_time = #{firstCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finalCheckTime != null">
+        final_check_time = #{finalCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.CenterSupplySupplier">
+    update center_supply_supplier
+    set name = #{name,jdbcType=VARCHAR},
+      main_body_type = #{mainBodyType,jdbcType=INTEGER},
+      supplier_type = #{supplierType,jdbcType=INTEGER},
+      country_id = #{countryId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      postal_code = #{postalCode,jdbcType=VARCHAR},
+      brief_introduction = #{briefIntroduction,jdbcType=VARCHAR},
+      submit_by = #{submitBy,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      first_check_status = #{firstCheckStatus,jdbcType=INTEGER},
+      final_check_status = #{finalCheckStatus,jdbcType=INTEGER},
+      first_check_time = #{firstCheckTime,jdbcType=TIMESTAMP},
+      final_check_time = #{finalCheckTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

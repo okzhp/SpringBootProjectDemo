@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CenterSupplySupplierLegalPersonMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.CenterSupplySupplierLegalPerson">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="url1" jdbcType="VARCHAR" property="url1" />
+    <result column="url2" jdbcType="VARCHAR" property="url2" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="id_card_num" jdbcType="VARCHAR" property="idCardNum" />
+    <result column="url3" jdbcType="VARCHAR" property="url3" />
+    <result column="passport_num" jdbcType="VARCHAR" property="passportNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, supplier_id, type, url1, url2, name, id_card_num, url3, passport_num, create_time, 
+    update_time, create_by, update_by
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.model.CenterSupplySupplierLegalPersonExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from center_supply_supplier_legal_person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from center_supply_supplier_legal_person
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from center_supply_supplier_legal_person
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.model.CenterSupplySupplierLegalPersonExample">
+    delete from center_supply_supplier_legal_person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.CenterSupplySupplierLegalPerson">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into center_supply_supplier_legal_person (supplier_id, type, url1, 
+      url2, name, id_card_num, 
+      url3, passport_num, create_time, 
+      update_time, create_by, update_by
+      )
+    values (#{supplierId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{url1,jdbcType=VARCHAR}, 
+      #{url2,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{idCardNum,jdbcType=VARCHAR}, 
+      #{url3,jdbcType=VARCHAR}, #{passportNum,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.CenterSupplySupplierLegalPerson">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into center_supply_supplier_legal_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="url1 != null">
+        url1,
+      </if>
+      <if test="url2 != null">
+        url2,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="idCardNum != null">
+        id_card_num,
+      </if>
+      <if test="url3 != null">
+        url3,
+      </if>
+      <if test="passportNum != null">
+        passport_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url1 != null">
+        #{url1,jdbcType=VARCHAR},
+      </if>
+      <if test="url2 != null">
+        #{url2,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNum != null">
+        #{idCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="url3 != null">
+        #{url3,jdbcType=VARCHAR},
+      </if>
+      <if test="passportNum != null">
+        #{passportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.model.CenterSupplySupplierLegalPersonExample" resultType="java.lang.Long">
+    select count(*) from center_supply_supplier_legal_person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update center_supply_supplier_legal_person
+    <set>
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=INTEGER},
+      </if>
+      <if test="row.supplierId != null">
+        supplier_id = #{row.supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="row.type != null">
+        type = #{row.type,jdbcType=INTEGER},
+      </if>
+      <if test="row.url1 != null">
+        url1 = #{row.url1,jdbcType=VARCHAR},
+      </if>
+      <if test="row.url2 != null">
+        url2 = #{row.url2,jdbcType=VARCHAR},
+      </if>
+      <if test="row.name != null">
+        name = #{row.name,jdbcType=VARCHAR},
+      </if>
+      <if test="row.idCardNum != null">
+        id_card_num = #{row.idCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="row.url3 != null">
+        url3 = #{row.url3,jdbcType=VARCHAR},
+      </if>
+      <if test="row.passportNum != null">
+        passport_num = #{row.passportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.updateTime != null">
+        update_time = #{row.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.createBy != null">
+        create_by = #{row.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="row.updateBy != null">
+        update_by = #{row.updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update center_supply_supplier_legal_person
+    set id = #{row.id,jdbcType=INTEGER},
+      supplier_id = #{row.supplierId,jdbcType=INTEGER},
+      type = #{row.type,jdbcType=INTEGER},
+      url1 = #{row.url1,jdbcType=VARCHAR},
+      url2 = #{row.url2,jdbcType=VARCHAR},
+      name = #{row.name,jdbcType=VARCHAR},
+      id_card_num = #{row.idCardNum,jdbcType=VARCHAR},
+      url3 = #{row.url3,jdbcType=VARCHAR},
+      passport_num = #{row.passportNum,jdbcType=VARCHAR},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      update_time = #{row.updateTime,jdbcType=TIMESTAMP},
+      create_by = #{row.createBy,jdbcType=VARCHAR},
+      update_by = #{row.updateBy,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.CenterSupplySupplierLegalPerson">
+    update center_supply_supplier_legal_person
+    <set>
+      <if test="supplierId != null">
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url1 != null">
+        url1 = #{url1,jdbcType=VARCHAR},
+      </if>
+      <if test="url2 != null">
+        url2 = #{url2,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNum != null">
+        id_card_num = #{idCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="url3 != null">
+        url3 = #{url3,jdbcType=VARCHAR},
+      </if>
+      <if test="passportNum != null">
+        passport_num = #{passportNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.CenterSupplySupplierLegalPerson">
+    update center_supply_supplier_legal_person
+    set supplier_id = #{supplierId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      url1 = #{url1,jdbcType=VARCHAR},
+      url2 = #{url2,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      id_card_num = #{idCardNum,jdbcType=VARCHAR},
+      url3 = #{url3,jdbcType=VARCHAR},
+      passport_num = #{passportNum,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
