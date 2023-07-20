@@ -1,34 +1,29 @@
-package com.example.demo.controller;
+package demo.controller;
 
-import com.elites.center.product.domain.CenterCountry;
-import com.elites.center.product.domain.CenterProductTag;
-import com.elites.center.product.mapper.CenterCountryMapper;
-import com.elites.center.product.mapper.CenterProductTagMapper;
+
+import com.example.demo.mapper.CenterSupplyProductMapper;
+import com.example.demo.common.api.CommonResult;
+import com.example.demo.model.CenterSupplyProduct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.List;
 
 @RestController
 public class TestController {
-    @Autowired
-    private CenterProductTagMapper centerProductTagMapper;
 
     @Autowired
-    private CenterCountryMapper countryMapper;
+    private CenterSupplyProductMapper productMapper;
 
-    @PostMapping("/test/a")
-    public String test(CenterCountry country){
-        int i = countryMapper.insert(country);
-        return i==0?"失败":"成功";
+
+    @GetMapping("/get01")
+    public CommonResult get01(Integer id){
+        CenterSupplyProduct p = productMapper.selectByPrimaryKey(id);
+        return CommonResult.success(p);
     }
-
-//    @GetMapping("/test/b")
-//    pubZlic String test1(){
-//        List<CenterProductTag> list = centerProductTagMapper.listCenterProductTagByProductId(1L);
-//        return list.toString();
-//    }
 
 
     @GetMapping("/get")
