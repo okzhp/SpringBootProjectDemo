@@ -25,6 +25,12 @@ public class TestController {
         return CommonResult.success(p);
     }
 
+    @GetMapping("/get02")
+    public CommonResult get02(Integer id){
+        CenterSupplyProduct p = productMapper.selectByPrimaryKey(id);
+        return CommonResult.success(p);
+    }
+
 
     @GetMapping("/get")
     public Stu getStu(){
